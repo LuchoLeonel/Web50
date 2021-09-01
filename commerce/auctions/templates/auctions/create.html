@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if save %}
+        <h4>Se guardó:</h4>
+        <p>{{ save }}</p>
+    {% endif %}
+
+    <h3>New Auction:</h3>
+    <form action="{% url 'create' %}" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <p id="formularios">Titulo: </p>
+        <p><input id="title" name="title" type="text"></p>
+        <p id="formularios">Descripción: </p>
+        <p><textarea id="description" name="description" type="text"></textarea></p>
+        <p id="formularios">URL de una imagen: </p>
+        <p><input id="image" name="image" type="text"></p>
+        <p id="formularios">Valor inicial: </p>
+        <p><input id="bid" name="bid" type="number"></p>
+        <p id="formularios">Categorias: </p>
+        <p></p>
+        <p id="formularios"><select name="categoria">
+            <option disabled>Categorias</option>
+            {% for categoria in categorias %}
+                <option value="{{ categoria.categoria }}">{{ categoria.categoria }}</option>
+            {% endfor %}
+        </select></p>
+        <p><input id="boton" type="submit" class="btn btn-primary" method="POST" value="Create New Auction"></input></p>
+    </form>
+{% endblock %}

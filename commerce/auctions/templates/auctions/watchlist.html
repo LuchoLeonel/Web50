@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+    {% if message %}
+        <p><b>{{ message }}</b></p>
+    {% endif %}
+
+    <h2 id="espacio">Watchlist:</h2>
+    {% for watchlist in watchlists %}
+        <div class="container p-3 my-3 border">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-3">
+                    <img src="{{ watchlist.image }}" alt="{{ watchlist.title }}" id="img">
+                </div>
+                <div class="col-sm-6 col-md-8 col-lg-8">
+                    <h4><a href="/listing/{{ watchlist.title }}" id="espacio">{{watchlist.title}}</a></h4>
+                    <p style="padding-bottom: 10px" id="espacio"><b>Precio:</b> ${{ watchlist.strongest_bid}}</p>
+                    <p style="padding-bottom: 10px" id="espacio">Descripción: {{ watchlist.description}}</p>
+                    <p style="padding-bottom: 0px" id="espacio">Created {{ watchlist.timestamp}}</p>
+                    {% if watchlist.active == False %}
+                        <p style="padding-bottom: 0px" id="espacio"><i>This auction is no longer active</i></p> 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p id="espacio">No auctions on the watchlist.</p>
+    {% endfor %}
+    
+{% endblock %}
