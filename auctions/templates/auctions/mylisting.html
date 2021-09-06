@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+    {% if message %}
+        <p><b>{{ message }}</b></p>
+    {% endif %}
+    
+    <h2 id="espacio">My Listings</h2>
+    {% for auction in auctions %}
+        <div class="container p-3 my-3 border">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-3">
+                    <img src="{{ auction.image }}" alt="{{ auction.title }}" id="img">
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <h4><a href="/listing/{{ auction.title }}" id="espacio">{{auction.title}}</a></h4>
+                    <p style="padding-bottom: 10px" id="espacio"><b>Precio:</b> ${{ auction.strongest_bid}}</p>
+                    <p style="padding-bottom: 10px" id="espacio">Descripción: {{ auction.description}}</p>
+                    <p style="padding-bottom: 0px" id="espacio">Created {{ auction.timestamp}}</p>
+                    {% if auction.active == False %}
+                        <p style="padding-bottom: 0px" id="espacio"><i>This auction is no longer active</i></p> 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p id="espacio">No auctions.</p>
+    {% endfor %}
+    
+{% endblock %}

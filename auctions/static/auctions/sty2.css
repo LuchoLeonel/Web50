@@ -1,0 +1,97 @@
+body {
+    padding: 10px;
+}
+
+#img {
+    width: 20vw;
+    height: 16vw;
+}
+
+#img2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35vw;
+    height: 25vw;
+}
+
+
+#formularios, #title, #description, #image, #bid, #categories, #boton, #submitbid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#title, #description, #image, #bid, #categories, #submitbid {
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    border-style: solid;
+}
+
+#title:hover, #title:active, #description:hover, #description:active, #image:hover, #image:active, #bid:hover, #bid:active, #categories:hover, #categories:active, #submitbid:hover, #submitbid:active {
+    border-style: solid;
+    border-color: LightGray;
+    border-width: 2px;
+}
+
+
+#title {
+    width: 300px;
+}
+
+#description {
+    width: 600px;
+    height: 300px;
+}
+
+#image {
+    width: 600px;
+}
+
+#categories {
+    width: 400px;
+}
+
+#boton {
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    background-color: #4d90fe;
+    border: 1px solid #3079ed;
+}
+
+#boton:hover, #boton:focus {
+    box-shadow: 1px 1px #4d90fe;
+    cursor: default;
+}
+
+#espacio {
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+#timestamp {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    color: Gray;
+    font-size: 10px;
+}
+
+#price {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    font-size: 14px;
+}
+
+#submitbid {
+    padding-left: 20px;
+}
+
+#respuesta {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
