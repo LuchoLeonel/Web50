@@ -1,0 +1,103 @@
+textarea {
+    min-height: 400px;
+}
+
+#email {
+    background-color: white;
+    border: 3px;
+    border-color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    padding-left: 20px;
+    font-size: 23px;
+}
+
+.from {
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+.timestamp {
+    color:rgb(114, 94, 94);
+    font-size: 15px;
+    font-style: italic;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    align-content: flex-end;
+}
+
+.subject {
+    font-size: 17px;
+    margin-left: 5px;
+} 
+
+.conta {
+    background-color: LightGray;
+    margin: 20px;
+    padding: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: darkslategray;
+}
+
+.conta:hover {
+    box-shadow: 2px 3px 3px 1px LightGray;
+    border-color: LightGray;
+}
+
+#botonarch, #botondis {
+    margin-left: 50px;
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    background-color: #4d90fe;
+    border: 1px solid #3079ed;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-content: flex-end;
+}
+
+#botonarch:hover, #botonarch:focus, #botondis:hover, #botondis:focus {
+    box-shadow: 1px 1px #4d90fe;
+    cursor: default;
+}
+
+#subj {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+#send {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+#recipi {
+    font-size: 15px;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+#time {
+    color: darkslategray;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+#reply {
+    margin-left: 20px;
+}
+
+#botondis2, #botonarch2 {
+    margin-left: 14px;
+}
