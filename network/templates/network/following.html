@@ -1,0 +1,95 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    
+    {% if message %}
+        <p><b>{{ message }}</b></p>
+    {% endif %}
+
+    <h2 id="espacio">Following:</h2>
+    {% for follow in follows %}
+        <div class="container p-3 my-3 border">
+            <a href="/usuario/{{ follow.user }}/1" id="user"><b>{{follow.user}}</b></a>
+            <p></p>
+            {% if user == follow.user %}
+                <p style="padding-bottom: 0px;" class="edit" id="{{follow.id}}">Edit</p>
+            {% endif %}
+            {% if follow.editado == True %}
+                <p style="padding-top: 0px; margin-bottom: 0px;" id="timestamp">Editado</p>
+            {% endif %}
+                <div class="content-view" id="{{follow.id}}">
+                    <p style="margin-left: 15px; margin-top: 0px; "id="texto">{{ follow.content}}</p>
+                </div>
+            {% if user == follow.user %}
+                <div class ="edit-view" id="{{follow.id}}">
+                    <p><textarea style="width: 350px; heigth: 200px;" autofocus class="area-edit" id="{{follow.id}}" name="content" type="text"></textarea></p>
+                    <p style="padding-left: 10px;" id="{{follow.id}}"><input type="submit" id="save-edit" class="btn btn-primary" method="POST" value="Save"></input></p>
+                </div>
+            {% endif %}
+            <p style="padding-bottom: 0px" id="timestamp">{{ follow.timestamp}}</p>
+
+            {% if user.is_authenticated %}
+                <div style="font-size: 27px;" class="{{follow.id}}" id="imagen"><img src="{% static 'network/like.png' %}" class="imagen" id="{{follow.id}}"><a id="numero"> {{ follow.likes }}</a></div>
+                <div style="font-size: 27px;" class="{{follow.id}}" id="unlike"><img src="{% static 'network/no-liked.png' %}" class="unlike" id="{{follow.id}}"><a id="numero">  {{ follow.likes }}</a></div>
+            {% else %}
+                <div style="font-size: 27px;" class="{{follow.id}}" id="unlike"><img src="{% static 'network/no-liked.png' %}"><a id="numero">  {{ follow.likes }}</a></div>
+            {% endif %}
+            <a style="font-size: 13px;" id="comments" class="{{follow.id}}">Comments</a>
+                <div id="comentarios" class="{{follow.id}}"></div>
+                <div id="comentar" class="{{follow.id}}">
+                {% if user.is_authenticated %}
+                    <p><textarea style="width: 350px; heigth: 200px;" autofocus class="area-comment" id="{{follow.id}}" name="content" type="text"></textarea></p>
+                    <p style="padding-left: 10px;" id="{{follow.id}}"><input type="submit" id="save-comment" class="btn btn-primary" method="POST" value="Comment"></input></p>
+                {% endif %}
+                </div>
+        </div>
+    {% empty %}
+        <p style="padding-bottom: 120px; padding-left: 170px; padding-top: 20px" >No user followed.</p>
+    {% endfor %}
+    
+    <nav aria-label="Page navigation example">
+    <div id="pagination">
+        <ul class="pagination justify-content-end">
+            {% if follows.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'following' follows.previous_page_number %}" tabindex="-1">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+            {% endif %}
+            {% for lista in listas %}
+                {% if lista == page_num %}
+                    <li class="page-item disabled"><a class="page-link" href="{% url 'following' lista %}">{{ lista }}</a></li>
+                {% else %}
+                    {% if lista in range %}    
+                        <li class="page-item"><a class="page-link" href="{% url 'following' lista %}">{{ lista }}</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link">{{ lista }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}    
+            {% if follows.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'following' follows.next_page_number %}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" aria-disabled="true">Next</a>
+                </li>
+            {% endif %}
+            
+        </ul>
+    </div>
+    </nav>
+
+{% endblock %}
+
+
+{% block script %}
+
+    <script src="{% static 'network/net.js' %}"></script>
+
+{% endblock %}

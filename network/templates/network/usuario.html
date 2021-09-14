@@ -1,0 +1,114 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+                
+    {% if message %}
+        <p><b>{{ message }}</b></p>
+    {% endif %}
+
+    {% if user %}
+        <div class="container p-3 my-3 border">
+            <h2 id="username">{{ users.username }}</h2>
+            <p id="seguido"><b>Seguidores: <a id="seguidores">{{dic.followers}}</a> - Seguidos: <a id="seguidos">{{dic.follows}}</a></b></p>
+
+            {% if user.is_authenticated %}
+                {% if user.username != users.username %}
+                    {% if dic.bollean == True %}
+                        <div id="{{users.username}}"><input id="unfollow" class="btn btn-primary" name="unfollow" type="submit" value="Unfollow"></div>
+                    {% else %}
+                        <div id="{{users.username}}"><input id="follow" class="btn btn-primary" name="follow" type="submit" value="Follow"></div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+        {% if posts %}
+            {% for post in posts %}           
+                <div class="container p-3 my-3 border">
+                    <a href="/usuario/{{ post.user }}/1" id="user"><b>{{post.user}}</b></a>
+                    <p></p>
+                    {% if user == post.user %}
+                        <p style="padding-bottom: 0px;" class="edit" id="{{post.id}}">Edit</p>
+                    {% endif %}
+                    {% if post.editado == True %}
+                        <p style="padding-top: 0px; margin-bottom: 0px;" id="timestamp">Editado</p>
+                    {% endif %}
+                        <div class="content-view" id="{{post.id}}">
+                            <p style="margin-left: 15px; margin-top: 0px; " id="texto">{{ post.content}}</p>
+                        </div>
+                    {% if user == post.user %}
+                        <div class ="edit-view" id="{{post.id}}">
+                            <p><textarea style="width: 350px; heigth: 200px;" autofocus class="area-edit" id="{{post.id}}" name="content" type="text"></textarea></p>
+                            <p style="padding-left: 10px;" id="{{post.id}}"><input type="submit" id="save-edit" class="btn btn-primary" method="POST" value="Save"></input></p>
+                        </div>
+                    {% endif %}
+                    <p style="padding-bottom: 0px" id="timestamp">{{ post.timestamp}}</p>
+
+                    {% if user.is_authenticated %}
+                        <div style="font-size: 27px;" class="{{post.id}}" id="imagen"><img src="{% static 'network/like.png' %}" class="imagen" id="{{post.id}}"><a id="numero"> {{ post.likes }}</a></div>
+                        <div style="font-size: 27px;" class="{{post.id}}" id="unlike"><img src="{% static 'network/no-liked.png' %}" class="unlike" id="{{post.id}}"><a id="numero">  {{ post.likes }}</a></div>
+                    {% else %}
+                        <div style="font-size: 27px;" class="{{post.id}}" id="unlike"><img src="{% static 'network/no-liked.png' %}"><a id="numero">  {{ post.likes }}</a></div>
+                    {% endif %}
+                    <a style="font-size: 13px;" id="comments" class="{{post.id}}">Comments</a>
+                    <div id="comentarios" class="{{post.id}}"></div>
+                    <div id="comentar" class="{{post.id}}">
+                    {% if user.is_authenticated %}
+                        <p><textarea style="width: 350px; heigth: 200px;" autofocus class="area-comment" id="{{post.id}}" name="content" type="text"></textarea></p>
+                        <p style="padding-left: 10px;" id="{{post.id}}"><input type="submit" id="save-comment" class="btn btn-primary" method="POST" value="Comment"></input></p>
+                    {% endif %}
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="padding-bottom: 10px">No posts.</p>
+        {% endif %}
+    {% endif %}
+    
+    <nav aria-label="Page navigation example">
+    <div id="pagination">
+        <ul class="pagination justify-content-end">
+            {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'usuario' users.username posts.previous_page_number %}" tabindex="-1">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+            {% endif %}
+            {% for lista in listas %}
+                {% if lista == page_num %}
+                    <li class="page-item disabled"><a class="page-link" href="{% url 'usuario' users.username lista %}">{{ lista }}</a></li>
+                {% else %}
+                    {% if lista in range %}    
+                        <li class="page-item"><a class="page-link" href="{% url 'usuario' users.username lista %}">{{ lista }}</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link">{{ lista }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}    
+            {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'usuario' users.username posts.next_page_number %}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" aria-disabled="true">Next</a>
+                </li>
+            {% endif %}
+            
+        </ul>
+    </div>
+    </nav>
+
+{% endblock %}
+
+
+
+{% block script %}
+
+    <script src="{% static 'network/net.js' %}"></script>
+
+{% endblock %}
